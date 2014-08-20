@@ -17,9 +17,9 @@ using namespace std;
 namespace Code {
     class KMP {
     public:
-        KMP(string pattern);
-        void changePattern(string pattern);
-        vector<int> search(string text);
+        KMP(const string &pattern);
+        void changePattern(const string &pattern);
+        vector<int> search(const string &text);
     private:
         string _patt;
         vector<int> _nfa; // Nondeterministic Finite Automaton

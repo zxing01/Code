@@ -12,13 +12,13 @@ using namespace std;
 using namespace Code;
 
 ///////////////////////////////////////////////////////////////////////////////
-KMP::KMP(string pattern) : _patt(pattern)
+KMP::KMP(const string &pattern) : _patt(pattern)
 {
     _buildNFA();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-vector<int> KMP::search(string text)
+vector<int> KMP::search(const string &text)
 {
     vector<int> indices;
     int plen = static_cast<int>(_patt.length());
@@ -42,7 +42,7 @@ vector<int> KMP::search(string text)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-void KMP::changePattern(string pattern)
+void KMP::changePattern(const string &pattern)
 {
     _patt = pattern;
     _buildNFA();
