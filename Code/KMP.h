@@ -14,12 +14,14 @@
 
 using namespace std;
 
-namespace Code {
-    class KMP {
+namespace Code
+{
+    class KMP
+    {
     public:
         KMP(const string &pattern);
         void changePattern(const string &pattern);
-        vector<int> search(const string &text);
+        vector<int> search(const string &text) const;
     private:
         string _patt;
         vector<int> _nfa; // Nondeterministic Finite Automaton

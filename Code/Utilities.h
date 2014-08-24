@@ -10,12 +10,12 @@
 #define __Code__Utilities__
 
 #include <vector>
-#include <list>
 
 using namespace std;
 
-namespace Code {
-    vector<int> maxInSubarrays(vector<int> &array, int subarraySize);
+namespace Code
+{
+    vector<int> maxInSubarrays(const vector<int> &array, int subarraySize);
 }
 
 #endif /* defined(__Code__Utilities__) */

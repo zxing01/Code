@@ -7,16 +7,18 @@
 //
 
 #include "Utilities.h"
+#include <list>
 
 using namespace std;
 
 ///////////////////////////////////////////////////////////////////////////////
-vector<int> Code::maxInSubarrays(vector<int> &array, int subarraySize)
+vector<int> Code::maxInSubarrays(const vector<int> &array, int subarraySize)
 {
     vector<int> max;
     list<int> deque;
     
-    for (int i = 0; i < array.size(); ++i) {
+    for (int i = 0; i < array.size(); ++i)
+    {
         while (!deque.empty() && array[deque.back()] < array[i])
             deque.pop_back();
         deque.push_back(i);

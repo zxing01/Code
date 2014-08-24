@@ -10,6 +10,7 @@
 		3D34F91819A53CCA00A5B021 /* Utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F91619A53CCA00A5B021 /* Utilities.cpp */; };
 		3D34F91B19A5533B00A5B021 /* Heap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F91919A5533B00A5B021 /* Heap.cpp */; };
 		3D7BD43C19A5054600993026 /* KMP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D7BD43A19A5054600993026 /* KMP.cpp */; };
+		3D8AC10719A68A720057ED29 /* AVLTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8AC10519A68A720057ED29 /* AVLTree.cpp */; };
 		3DE8072D1995BC1D008A36D4 /* Code.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3DE8072C1995BC1D008A36D4 /* Code.1 */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,8 @@
 		3D34F91A19A5533B00A5B021 /* Heap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Heap.h; sourceTree = "<group>"; };
 		3D7BD43A19A5054600993026 /* KMP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KMP.cpp; sourceTree = "<group>"; };
 		3D7BD43B19A5054600993026 /* KMP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMP.h; sourceTree = "<group>"; };
+		3D8AC10519A68A720057ED29 /* AVLTree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AVLTree.cpp; sourceTree = "<group>"; };
+		3D8AC10619A68A720057ED29 /* AVLTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVLTree.h; sourceTree = "<group>"; };
 		3DE807271995BC1C008A36D4 /* Code */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Code; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DE8072C1995BC1D008A36D4 /* Code.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Code.1; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -74,6 +77,8 @@
 				3D34F91719A53CCA00A5B021 /* Utilities.h */,
 				3D34F91919A5533B00A5B021 /* Heap.cpp */,
 				3D34F91A19A5533B00A5B021 /* Heap.h */,
+				3D8AC10519A68A720057ED29 /* AVLTree.cpp */,
+				3D8AC10619A68A720057ED29 /* AVLTree.h */,
 			);
 			path = Code;
 			sourceTree = "<group>";
@@ -132,6 +137,7 @@
 				3D34F91B19A5533B00A5B021 /* Heap.cpp in Sources */,
 				3D34F91819A53CCA00A5B021 /* Utilities.cpp in Sources */,
 				3D7BD43C19A5054600993026 /* KMP.cpp in Sources */,
+				3D8AC10719A68A720057ED29 /* AVLTree.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,7 +220,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
-					__TEST__Code__Heap__,
+					__TEST__Code__AVLTree__,
 				);
 				INFOPLIST_PREPROCESSOR_DEFINITIONS = "";
 				MACOSX_DEPLOYMENT_TARGET = "";

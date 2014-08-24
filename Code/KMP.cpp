@@ -18,17 +18,20 @@ KMP::KMP(const string &pattern) : _patt(pattern)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-vector<int> KMP::search(const string &text)
+vector<int> KMP::search(const string &text) const
 {
     vector<int> indices;
     int plen = static_cast<int>(_patt.length());
     int tlen = static_cast<int>(text.length());
     int i = 0, j = 0;
     
-    while (i < tlen && j < plen) {
-        if (text[i] == _patt[j]) {
+    while (i < tlen && j < plen)
+    {
+        if (text[i] == _patt[j])
+        {
             ++i, ++j;
-            if (j == plen) {
+            if (j == plen)
+            {
                 indices.push_back(i - plen);
                 j = _nfa[j-1];
             }
@@ -55,7 +58,8 @@ void KMP::_buildNFA()
     _nfa = vector<int>(len);
     int match = 0, pos = 0;
     
-    while (pos < len) {
+    while (pos < len)
+    {
         if (pos < 2)
             _nfa[pos++] = 0;
         else if (_patt[pos-1] == _patt[match])
