@@ -14,10 +14,8 @@
 
 using namespace std;
 
-namespace Code
-{
-    class KMP
-    {
+namespace Code {
+    class KMP {
     public:
         KMP(const string &pattern);
         void changePattern(const string &pattern);

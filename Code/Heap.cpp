@@ -17,18 +17,15 @@
 using namespace std;
 using namespace Code;
 
-bool larger(const int &n1, const int &n2)
-{
+bool larger(const int &n1, const int &n2) {
     return n1 > n2;
 }
 
-bool smaller(const int &n1, const int &n2)
-{
+bool smaller(const int &n1, const int &n2) {
     return n1 < n2;
 }
 
-int main(int argc, const char *argv[])
-{
+int main(int argc, const char *argv[]) {
     list<int> nums {9, 1, 5, 3, 7};
     set<int> ext {6, 4, 8, 0, 2};
     cout << " original heap elements = [ ";

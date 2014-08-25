@@ -1,15 +1,15 @@
 //
-//  AVLTree.cpp
+//  RBTree.cpp
 //  Code
 //
-//  Created by Zhi Xing on 8/21/14.
+//  Created by Zhi Xing on 8/24/14.
 //  Copyright (c) 2014 Zhi Xing. All rights reserved.
 //
 
-#include "AVLTree.h"
+#include "RBTree.h"
 
 ///////////////////////////////////////////////////////////////////////////////
-#ifdef __TEST__Code__AVLTree__
+#ifdef __TEST__Code__RBTree__
 
 #include <iostream>
 
@@ -25,60 +25,60 @@ void minusOne(int &n) {
 }
 
 int main(int argc, char *argv[]) {
-    AVLTree<int> avl;
+    RBTree<int> rb;
     
     cout << " Adding value 0 to 14...\n";
     for (int i = 8; i >= 0; --i)
-        avl.insert(i);
+        rb.insert(i);
     for (int i = 5; i < 15; ++i)
-        avl.insert(i);
-    cout << " Size = " << avl.size() << endl;
+        rb.insert(i);
+    cout << " Size = " << rb.size() << endl;
     
     cout << " Inorder traversal: ";
-    avl.inorderTraversal(print);
+    rb.inorderTraversal(print);
     cout << endl;
     
     cout << " Preorder traversal: ";
-    avl.preorderTraversal(print);
+    rb.preorderTraversal(print);
     cout << endl;
     
     cout << " Postorder traversal: ";
-    avl.postorderTraversal(print);
+    rb.postorderTraversal(print);
     cout << endl;
     
     cout << " Removing value 0 to 8...\n";
     for (int i = 0; i < 4; ++i)
-        avl.remove(i);
+        rb.remove(i);
     for (int i = 8; i >= 0; --i)
-        avl.remove(i);
-    cout << " Size = " << avl.size() << endl;
+        rb.remove(i);
+    cout << " Size = " << rb.size() << endl;
     
     cout << " Inorder traversal: ";
-    avl.inorderTraversal(print);
+    rb.inorderTraversal(print);
     cout << endl;
     
     cout << " Preorder traversal: ";
-    avl.preorderTraversal(print);
+    rb.preorderTraversal(print);
     cout << endl;
     
     cout << " Postorder traversal: ";
-    avl.postorderTraversal(print);
+    rb.postorderTraversal(print);
     cout << endl;
     
     cout << " Minusing one from all the elements...\n";
-    avl.inorderTraversal(minusOne);
-    cout << " Size = " << avl.size() << endl;
+    rb.inorderTraversal(minusOne);
+    cout << " Size = " << rb.size() << endl;
     
     cout << " Inorder traversal: ";
-    avl.inorderTraversal(print);
+    rb.inorderTraversal(print);
     cout << endl;
     
     cout << " Preorder traversal: ";
-    avl.preorderTraversal(print);
+    rb.preorderTraversal(print);
     cout << endl;
     
     cout << " Postorder traversal: ";
-    avl.postorderTraversal(print);
+    rb.postorderTraversal(print);
     cout << endl;
 }
 

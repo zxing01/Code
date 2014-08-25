@@ -11,23 +11,20 @@
 
 #include <stack>
 
-namespace Code
-{
+namespace Code {
     // type T needs to have copy constructor, operator< and operator== implemented
     template <typename T>
-    class AVLTree
-    {
+    class AVLTree {
     public:
         AVLTree(): _size(0), _root(nullptr) {}
         int size() const;
         void insert(const T &value);
         void remove(const T &value);
-        void inorderTraversal(void (*)(T)) const;
-        void preorderTraversal(void (*)(T)) const;
-        void postorderTraversal(void (*)(T)) const;
+        void inorderTraversal(void (*)(T&));
+        void preorderTraversal(void (*)(T&));
+        void postorderTraversal(void (*)(T&));
     private:
-        struct Node
-        {
+        struct Node {
             T elem;
             int height;
             Node *left;
@@ -51,29 +48,25 @@ using namespace Code;
 
 ///////////////////////////////////////////////////////////////////////////////
 template <typename T>
-int AVLTree<T>::size() const
-{
+int AVLTree<T>::size() const {
     return _size;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 template <typename T>
-void AVLTree<T>::insert(const T &value)
-{
+void AVLTree<T>::insert(const T &value) {
     _root = _insert(_root, value);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 template <typename T>
-void AVLTree<T>::remove(const T &value)
-{
+void AVLTree<T>::remove(const T &value) {
     _root = _remove(_root, value);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 template <typename T>
-void AVLTree<T>::inorderTraversal(void (*operation)(T)) const
-{
+void AVLTree<T>::inorderTraversal(void (*operation)(T&)) {
     stack<Node*> stk;
     Node* cur = _root;
     while (cur || !stk.empty()) {
@@ -92,8 +85,7 @@ void AVLTree<T>::inorderTraversal(void (*operation)(T)) const
 
 ///////////////////////////////////////////////////////////////////////////////
 template <typename T>
-void AVLTree<T>::preorderTraversal(void (*operation)(T)) const
-{
+void AVLTree<T>::preorderTraversal(void (*operation)(T&)) {
     stack<Node*> stk;
     Node* cur = _root;
     while (cur || !stk.empty()) {
@@ -111,8 +103,7 @@ void AVLTree<T>::preorderTraversal(void (*operation)(T)) const
 
 ///////////////////////////////////////////////////////////////////////////////
 template <typename T>
-void AVLTree<T>::postorderTraversal(void (*operation)(T)) const
-{
+void AVLTree<T>::postorderTraversal(void (*operation)(T&)) {
     stack<Node*> stk_tmp;
     stack<Node*> stk_out;
     Node* cur = _root;
@@ -136,15 +127,16 @@ void AVLTree<T>::postorderTraversal(void (*operation)(T)) const
 
 ///////////////////////////////////////////////////////////////////////////////
 template <typename T>
-typename AVLTree<T>::Node *AVLTree<T>::_insert(Node *root, const T &value)
-{
+typename AVLTree<T>::Node *AVLTree<T>::_insert(Node *root, const T &value) {
     if (!root) {
         root = new Node(value);
         ++_size;
     }
+    else if (value == root->elem)
+        return root;
     else if (value < root->elem)
         root->left = _insert(root->left, value);
-    else
+    else // value > root->elem
         root->right = _insert(root->right, value);
     
     return _balance(root);
@@ -152,8 +144,7 @@ typename AVLTree<T>::Node *AVLTree<T>::_insert(Node *root, const T &value)
 
 ///////////////////////////////////////////////////////////////////////////////
 template <typename T>
-typename AVLTree<T>::Node *AVLTree<T>::_remove(Node *root, const T &value)
-{
+typename AVLTree<T>::Node *AVLTree<T>::_remove(Node *root, const T &value) {
     if (!root)
         return nullptr;
     else if (value < root->elem)
@@ -161,8 +152,8 @@ typename AVLTree<T>::Node *AVLTree<T>::_remove(Node *root, const T &value)
     else if (value > root->elem)
         root->right = _remove(root->right, value);
     else if (!root->left) { // value == root->elem
-        --_size;
         delete root;
+        --_size;
         root = root->right;
     }
     else { // value == root->elem
@@ -178,8 +169,7 @@ typename AVLTree<T>::Node *AVLTree<T>::_remove(Node *root, const T &value)
 
 ///////////////////////////////////////////////////////////////////////////////
 template <typename T>
-typename AVLTree<T>::Node *AVLTree<T>::_balance(Node *root)
-{
+typename AVLTree<T>::Node *AVLTree<T>::_balance(Node *root) {
     if (!root)
         return nullptr;
     
@@ -202,8 +192,7 @@ typename AVLTree<T>::Node *AVLTree<T>::_balance(Node *root)
 
 ///////////////////////////////////////////////////////////////////////////////
 template <typename T>
-typename AVLTree<T>::Node *AVLTree<T>::_rotateLeft(Node *root)
-{
+typename AVLTree<T>::Node *AVLTree<T>::_rotateLeft(Node *root) {
     if (!root || !root->right)
         return root;
     
@@ -219,8 +208,7 @@ typename AVLTree<T>::Node *AVLTree<T>::_rotateLeft(Node *root)
 
 ///////////////////////////////////////////////////////////////////////////////
 template <typename T>
-typename AVLTree<T>::Node *AVLTree<T>::_rotateRight(Node *root)
-{
+typename AVLTree<T>::Node *AVLTree<T>::_rotateRight(Node *root) {
     if (!root || !root->left)
         return root;
     
@@ -236,8 +224,7 @@ typename AVLTree<T>::Node *AVLTree<T>::_rotateRight(Node *root)
 
 ///////////////////////////////////////////////////////////////////////////////
 template <typename T>
-int AVLTree<T>::_height(Node *root) const
-{
+int AVLTree<T>::_height(Node *root) const {
     if (!root)
         return 0;
     int leftHeight = root->left ? root->left->height : 0;
@@ -247,8 +234,7 @@ int AVLTree<T>::_height(Node *root) const
 
 ///////////////////////////////////////////////////////////////////////////////
 template <typename T>
-int AVLTree<T>::_heightDiff(Node *root) const
-{
+int AVLTree<T>::_heightDiff(Node *root) const {
     if (!root)
         return 0;
     int leftHeight = root->left ? root->left->height : 0;

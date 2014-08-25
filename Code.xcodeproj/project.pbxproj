@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3D34F91819A53CCA00A5B021 /* Utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F91619A53CCA00A5B021 /* Utilities.cpp */; };
 		3D34F91B19A5533B00A5B021 /* Heap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F91919A5533B00A5B021 /* Heap.cpp */; };
+		3D6BD4C219AA587800E7D24C /* RBTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6BD4C019AA587800E7D24C /* RBTree.cpp */; };
 		3D7BD43C19A5054600993026 /* KMP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D7BD43A19A5054600993026 /* KMP.cpp */; };
 		3D8AC10719A68A720057ED29 /* AVLTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8AC10519A68A720057ED29 /* AVLTree.cpp */; };
 		3DE8072D1995BC1D008A36D4 /* Code.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3DE8072C1995BC1D008A36D4 /* Code.1 */; };
@@ -32,6 +33,8 @@
 		3D34F91719A53CCA00A5B021 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		3D34F91919A5533B00A5B021 /* Heap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Heap.cpp; sourceTree = "<group>"; };
 		3D34F91A19A5533B00A5B021 /* Heap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Heap.h; sourceTree = "<group>"; };
+		3D6BD4C019AA587800E7D24C /* RBTree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RBTree.cpp; sourceTree = "<group>"; };
+		3D6BD4C119AA587800E7D24C /* RBTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBTree.h; sourceTree = "<group>"; };
 		3D7BD43A19A5054600993026 /* KMP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KMP.cpp; sourceTree = "<group>"; };
 		3D7BD43B19A5054600993026 /* KMP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMP.h; sourceTree = "<group>"; };
 		3D8AC10519A68A720057ED29 /* AVLTree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AVLTree.cpp; sourceTree = "<group>"; };
@@ -79,6 +82,8 @@
 				3D34F91A19A5533B00A5B021 /* Heap.h */,
 				3D8AC10519A68A720057ED29 /* AVLTree.cpp */,
 				3D8AC10619A68A720057ED29 /* AVLTree.h */,
+				3D6BD4C019AA587800E7D24C /* RBTree.cpp */,
+				3D6BD4C119AA587800E7D24C /* RBTree.h */,
 			);
 			path = Code;
 			sourceTree = "<group>";
@@ -136,6 +141,7 @@
 			files = (
 				3D34F91B19A5533B00A5B021 /* Heap.cpp in Sources */,
 				3D34F91819A53CCA00A5B021 /* Utilities.cpp in Sources */,
+				3D6BD4C219AA587800E7D24C /* RBTree.cpp in Sources */,
 				3D7BD43C19A5054600993026 /* KMP.cpp in Sources */,
 				3D8AC10719A68A720057ED29 /* AVLTree.cpp in Sources */,
 			);
@@ -220,7 +226,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
-					__TEST__Code__AVLTree__,
+					__TEST__Code__RBTree__,
 				);
 				INFOPLIST_PREPROCESSOR_DEFINITIONS = "";
 				MACOSX_DEPLOYMENT_TARGET = "";

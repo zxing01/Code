@@ -12,13 +12,11 @@
 using namespace std;
 
 ///////////////////////////////////////////////////////////////////////////////
-vector<int> Code::maxInSubarrays(const vector<int> &array, int subarraySize)
-{
+vector<int> Code::maxInSubarrays(const vector<int> &array, int subarraySize) {
     vector<int> max;
     list<int> deque;
     
-    for (int i = 0; i < array.size(); ++i)
-    {
+    for (int i = 0; i < array.size(); ++i) {
         while (!deque.empty() && array[deque.back()] < array[i])
             deque.pop_back();
         deque.push_back(i);
@@ -36,8 +34,7 @@ vector<int> Code::maxInSubarrays(const vector<int> &array, int subarraySize)
 #include <iostream>
 using namespace Code;
 
-int main(int argc, const char *argv[])
-{
+int main(int argc, const char *argv[]) {
     vector<int> array {1, 2, 3, 4, 5, 4, 3, 2, 1};
     cout << " array = [ ";
     for (auto n : array)

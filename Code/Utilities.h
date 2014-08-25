@@ -13,8 +13,7 @@
 
 using namespace std;
 
-namespace Code
-{
+namespace Code {
     vector<int> maxInSubarrays(const vector<int> &array, int subarraySize);
 }
 
