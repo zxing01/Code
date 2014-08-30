@@ -10,19 +10,25 @@
 #define __Code__AVLTree__
 
 #include <stack>
-
+#include <iostream>
 namespace Code {
     // type T needs to have copy constructor, operator< and operator== implemented
     template <typename T>
     class AVLTree {
     public:
         AVLTree(): _size(0), _root(nullptr) {}
+        AVLTree(const AVLTree<T> &other);
+        AVLTree(AVLTree<T> &&other);
+        ~AVLTree();
+        AVLTree<T> &operator=(const AVLTree<T> &other);
+        AVLTree<T> &operator=(AVLTree<T> &&other);
         int size() const;
         void insert(const T &value);
         void remove(const T &value);
         void inorderTraversal(void (*)(T&));
         void preorderTraversal(void (*)(T&));
         void postorderTraversal(void (*)(T&));
+        
     private:
         struct Node {
             T elem;
@@ -31,8 +37,12 @@ namespace Code {
             Node *right;
             Node(const T &value): elem(value), height(1), left(nullptr), right(nullptr) {}
         };
+        
         int _size;
         Node *_root;
+        
+        void _clean(Node *root);
+        Node *_copy(const Node *root);
         Node *_insert(Node *root, const T &value);
         Node *_remove(Node *root, const T &value);
         Node *_rotateLeft(Node *root);
@@ -45,6 +55,45 @@ namespace Code {
 
 using namespace std;
 using namespace Code;
+
+///////////////////////////////////////////////////////////////////////////////
+template <typename T>
+AVLTree<T>::~AVLTree() {
+    _clean(_root);
+    _root = nullptr;
+    _size = 0;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+template <typename T>
+AVLTree<T>::AVLTree(const AVLTree<T> &other): _root(_copy(other._root)), _size(other._size) {}
+
+///////////////////////////////////////////////////////////////////////////////
+template <typename T>
+AVLTree<T>::AVLTree(AVLTree<T> &&other): _root(other._root), _size(other._size) {
+    other._root = nullptr;
+    other._size = 0;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+template <typename T>
+AVLTree<T> &AVLTree<T>::operator=(const AVLTree<T> &other) {
+    _clean(_root);
+    _root = _copy(other._root);
+    _size = other._size;
+    return *this;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+template <typename T>
+AVLTree<T> &AVLTree<T>::operator=(AVLTree<T> &&other) {
+    _clean(_root);
+    _root = other._root;
+    _size = other._size;
+    other._root = nullptr;
+    other._size = 0;
+    return *this;
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 template <typename T>
@@ -124,6 +173,32 @@ void AVLTree<T>::postorderTraversal(void (*operation)(T&)) {
         stk_out.pop();
     }
 }
+
+///////////////////////////////////////////////////////////////////////////////
+template <typename T>
+void AVLTree<T>::_clean(Node *root) {
+    if (!root)
+        return;
+    if (root->left)
+        _clean(root->left);
+    if (root->right)
+        _clean(root->right);
+    delete root;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+template <typename T>
+typename AVLTree<T>::Node *AVLTree<T>::_copy(const Node *root) {
+    if (!root)
+        return nullptr;
+    Node *newRoot = new Node(root->elem);
+    if (root->left)
+        newRoot->left = _copy(root->left);
+    if (root->right)
+        newRoot->right = _copy(root->right);
+    return newRoot;
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////
 template <typename T>

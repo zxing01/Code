@@ -16,12 +16,18 @@ namespace Code {
     class RBTree {
     public:
         RBTree(): _root(nullptr), _size(0) {}
+        RBTree(const RBTree<T> &other);
+        RBTree(RBTree<T> &&other);
+        ~RBTree();
+        RBTree<T> &operator=(const RBTree<T> &other);
+        RBTree<T> &operator=(RBTree<T> &&other);
         int size() const;
         void insert(const T &value);
         void remove(const T &value);
         void inorderTraversal(void (*)(T&));
         void preorderTraversal(void (*)(T&));
         void postorderTraversal(void (*)(T&));
+
     private:
         struct Node {
             T elem;
@@ -31,8 +37,12 @@ namespace Code {
             Node *parent;
             Node(const T &value): elem(value), red(true), left(nullptr), right(nullptr), parent(nullptr) {}
         };
+        
         Node *_root;
         int _size;
+        
+        void _clean(Node *root);
+        Node *_copy(const Node *root);
         void _insertBalance(Node *node);
         void _removeBalance(Node *remove, Node *replace);
         Node *_rotateLeft(Node *root);
@@ -42,6 +52,45 @@ namespace Code {
 
 using namespace std;
 using namespace Code;
+
+///////////////////////////////////////////////////////////////////////////////
+template <typename T>
+RBTree<T>::RBTree(const RBTree<T> &other): _root(_copy(other._root)), _size(other._size) {}
+
+///////////////////////////////////////////////////////////////////////////////
+template <typename T>
+RBTree<T>::RBTree(RBTree<T> &&other): _root(other._root), _size(other._size) {
+    other._root = nullptr;
+    other._size = 0;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+template <typename T>
+RBTree<T>::~RBTree() {
+    _clean(_root);
+    _root = nullptr;
+    _size = 0;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+template <typename T>
+RBTree<T> &RBTree<T>::operator=(const RBTree<T> &other) {
+    _clean(_root);
+    _root = _copy(other._root);
+    _size = other._size;
+    return *this;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+template <typename T>
+RBTree<T> &RBTree<T>::operator=(RBTree<T> &&other) {
+    _clean(_root);
+    _root = other._root;
+    _size = other._size;
+    other._root = nullptr;
+    other._size = 0;
+    return *this;
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 template <typename T>
@@ -182,6 +231,36 @@ void RBTree<T>::postorderTraversal(void (*operation)(T&)) {
                 cur = cur->right;
         }
     }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+template <typename T>
+void RBTree<T>::_clean(Node *root) {
+    if (!root)
+        return;
+    if (root->left)
+        _clean(root->left);
+    if (root->right)
+        _clean(root->right);
+    delete root;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+template <typename T>
+typename RBTree<T>::Node *RBTree<T>::_copy(const Node *root) {
+    if (!root)
+        return nullptr;
+    Node *newRoot = new Node(root->elem);
+    newRoot->red = root->red;
+    if (root->left) {
+        newRoot->left = _copy(root->left);
+        newRoot->left->parent = newRoot;
+    }
+    if (root->right) {
+        newRoot->right = _copy(root->right);
+        newRoot->right->parent = newRoot;
+    }
+    return newRoot;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

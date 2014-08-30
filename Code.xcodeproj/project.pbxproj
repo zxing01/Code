@@ -12,6 +12,7 @@
 		3D6BD4C219AA587800E7D24C /* RBTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6BD4C019AA587800E7D24C /* RBTree.cpp */; };
 		3D7BD43C19A5054600993026 /* KMP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D7BD43A19A5054600993026 /* KMP.cpp */; };
 		3D8AC10719A68A720057ED29 /* AVLTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8AC10519A68A720057ED29 /* AVLTree.cpp */; };
+		3DC9328319B11778005C6F8B /* Trie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC9328119B11778005C6F8B /* Trie.cpp */; };
 		3DE8072D1995BC1D008A36D4 /* Code.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3DE8072C1995BC1D008A36D4 /* Code.1 */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,8 @@
 		3D7BD43B19A5054600993026 /* KMP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMP.h; sourceTree = "<group>"; };
 		3D8AC10519A68A720057ED29 /* AVLTree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AVLTree.cpp; sourceTree = "<group>"; };
 		3D8AC10619A68A720057ED29 /* AVLTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVLTree.h; sourceTree = "<group>"; };
+		3DC9328119B11778005C6F8B /* Trie.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Trie.cpp; sourceTree = "<group>"; };
+		3DC9328219B11778005C6F8B /* Trie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trie.h; sourceTree = "<group>"; };
 		3DE807271995BC1C008A36D4 /* Code */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Code; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DE8072C1995BC1D008A36D4 /* Code.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Code.1; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -84,6 +87,8 @@
 				3D8AC10619A68A720057ED29 /* AVLTree.h */,
 				3D6BD4C019AA587800E7D24C /* RBTree.cpp */,
 				3D6BD4C119AA587800E7D24C /* RBTree.h */,
+				3DC9328119B11778005C6F8B /* Trie.cpp */,
+				3DC9328219B11778005C6F8B /* Trie.h */,
 			);
 			path = Code;
 			sourceTree = "<group>";
@@ -142,6 +147,7 @@
 				3D34F91B19A5533B00A5B021 /* Heap.cpp in Sources */,
 				3D34F91819A53CCA00A5B021 /* Utilities.cpp in Sources */,
 				3D6BD4C219AA587800E7D24C /* RBTree.cpp in Sources */,
+				3DC9328319B11778005C6F8B /* Trie.cpp in Sources */,
 				3D7BD43C19A5054600993026 /* KMP.cpp in Sources */,
 				3D8AC10719A68A720057ED29 /* AVLTree.cpp in Sources */,
 			);
@@ -226,7 +232,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
-					__TEST__Code__RBTree__,
+					__TEST__Code__Trie__,
 				);
 				INFOPLIST_PREPROCESSOR_DEFINITIONS = "";
 				MACOSX_DEPLOYMENT_TARGET = "";

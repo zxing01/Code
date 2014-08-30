@@ -32,17 +32,14 @@ int main(int argc, char *argv[]) {
         rb.insert(i);
     for (int i = 5; i < 15; ++i)
         rb.insert(i);
-    cout << " Size = " << rb.size() << endl;
-    
-    cout << " Inorder traversal: ";
+    cout << "   Size = " << rb.size() << endl;
+    cout << "   Inorder traversal: ";
     rb.inorderTraversal(print);
     cout << endl;
-    
-    cout << " Preorder traversal: ";
+    cout << "   Preorder traversal: ";
     rb.preorderTraversal(print);
     cout << endl;
-    
-    cout << " Postorder traversal: ";
+    cout << "   Postorder traversal: ";
     rb.postorderTraversal(print);
     cout << endl;
     
@@ -51,34 +48,73 @@ int main(int argc, char *argv[]) {
         rb.remove(i);
     for (int i = 8; i >= 0; --i)
         rb.remove(i);
-    cout << " Size = " << rb.size() << endl;
-    
-    cout << " Inorder traversal: ";
+    cout << "   Size = " << rb.size() << endl;
+    cout << "   Inorder traversal: ";
     rb.inorderTraversal(print);
     cout << endl;
-    
-    cout << " Preorder traversal: ";
+    cout << "   Preorder traversal: ";
     rb.preorderTraversal(print);
     cout << endl;
-    
-    cout << " Postorder traversal: ";
+    cout << "   Postorder traversal: ";
     rb.postorderTraversal(print);
+    cout << endl;
+    
+    cout << " Testing copy constructor...\n";
+    RBTree<int> copy(rb);
+    cout << "   Size of copy = " << copy.size() << endl;
+    cout << "   Size of origin = " << rb.size() << endl;
+    cout << "   Inorder traversal of copy: ";
+    copy.inorderTraversal(print);
+    cout << endl;
+    cout << "   Inorder traversal of origin: ";
+    rb.inorderTraversal(print);
     cout << endl;
     
     cout << " Minusing one from all the elements...\n";
     rb.inorderTraversal(minusOne);
-    cout << " Size = " << rb.size() << endl;
-    
-    cout << " Inorder traversal: ";
+    cout << "   Size = " << rb.size() << endl;
+    cout << "   Inorder traversal: ";
     rb.inorderTraversal(print);
     cout << endl;
     
-    cout << " Preorder traversal: ";
-    rb.preorderTraversal(print);
+    cout << " Testing copy assignment...\n";
+    copy = rb;
+    cout << "   Size of copy = " << copy.size() << endl;
+    cout << "   Size of origin = " << rb.size() << endl;
+    cout << "   Inorder traversal of copy: ";
+    copy.inorderTraversal(print);
+    cout << endl;
+    cout << "   Inorder traversal of origin: ";
+    rb.inorderTraversal(print);
     cout << endl;
     
-    cout << " Postorder traversal: ";
-    rb.postorderTraversal(print);
+    cout << " Testing move constructor...\n";
+    RBTree<int> temp(move(copy));
+    cout << "   Size of temp = " << temp.size() << endl;
+    cout << "   Size of copy = " << copy.size() << endl;
+    cout << "   Inorder traversal of temp: ";
+    temp.inorderTraversal(print);
+    cout << endl;
+    cout << "   Inorder traversal of copy: ";
+    copy.inorderTraversal(print);
+    cout << endl;
+    
+    cout << " Testing move assignment...\n";
+    copy = move(temp);
+    cout << "   Size of temp = " << temp.size() << endl;
+    cout << "   Size of copy = " << copy.size() << endl;
+    cout << "   Inorder traversal of temp: ";
+    temp.inorderTraversal(print);
+    cout << endl;
+    cout << "   Inorder traversal of copy: ";
+    copy.inorderTraversal(print);
+    cout << endl;
+    
+    cout << " Destroying original tree...\n";
+    rb.~RBTree();
+    cout << "   Size = " << rb.size() << endl;
+    cout << "   Inorder traversal: ";
+    rb.inorderTraversal(print);
     cout << endl;
 }
 
