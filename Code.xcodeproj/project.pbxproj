@@ -232,7 +232,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
-					__TEST__Code__Trie__,
+					__TEST__Code__Utilities__,
 				);
 				INFOPLIST_PREPROCESSOR_DEFINITIONS = "";
 				MACOSX_DEPLOYMENT_TARGET = "";

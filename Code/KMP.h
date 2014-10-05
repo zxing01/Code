@@ -22,8 +22,8 @@ namespace Code {
         vector<int> search(const string &text) const;
     private:
         string _patt;
-        vector<int> _nfa; // Nondeterministic Finite Automaton
-        void _buildNFA();
+        vector<int> _dfa; // Deterministic Finite Automaton
+        void _buildDFA();
     };
 }
 

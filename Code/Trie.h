@@ -28,7 +28,7 @@ namespace Code {
         Trie &operator=(Trie &&other);
         virtual void insert(const string &word);
         virtual void remove(const string &word);
-        virtual bool lookup(const string &word);
+        virtual bool lookup(const string &word) const;
     private:
         struct Node {
             int value;
@@ -37,10 +37,10 @@ namespace Code {
         };
         
         Node *_root;
-        Node *_copy(Node *root);
+        Node *_copy(const Node *root);
         void _clean(Node *root);
         bool _remove(const string &word, int index, Node *root);
-        bool _isFree(Node *root);
+        bool _isFree(const Node *root) const;
     };
 }
 #endif /* defined(__Code__Trie__) */

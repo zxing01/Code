@@ -64,7 +64,7 @@ void Trie::remove(const string &word) {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-bool Trie::lookup(const string &word) {
+bool Trie::lookup(const string &word) const {
     if (!_root)
         return false;
     Node *cur = _root;
@@ -80,7 +80,7 @@ bool Trie::lookup(const string &word) {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-Trie::Node *Trie::_copy(Node *root) {
+Trie::Node *Trie::_copy(const Node *root) {
     if (!root)
         return nullptr;
     Node *newRoot = new Node(root->value);
@@ -124,7 +124,7 @@ bool Trie::_remove(const string &word, int index, Node *root) {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-bool Trie::_isFree(Node *root) {
+bool Trie::_isFree(const Node *root) const {
     if (!root)
         return false;
     for (int i = 0; i < ALPHABET_SIZE; ++i)
