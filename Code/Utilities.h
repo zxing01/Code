@@ -58,6 +58,31 @@ namespace Code {
     
     // check if a number is palindrome (negative numbers are considered not)
     bool isPalindrome(int x);
+    
+    // count the number of solutions for n-queen problem
+    int nQueen(int n);
+    
+    // multiply two integers without using * and with minimal number of additions
+    int multiply(int a, int b);
+    
+    // build binary tree from inorder and preorder traversal
+    TreeNode *buildBinaryTree(const vector<int> &inorder, const vector<int> &preorder);
+    
+    // iterative preorder binary tree traversal
+    vector<int> preorder(TreeNode *root);
+    
+    // iterative inorder binary tree traversal
+    vector<int> inorder(TreeNode *root);
+    
+    // iterateive postorder binary tree traversal
+    vector<int> postorder(TreeNode *root);
+    
+    // helper functions
+    namespace Helper {
+        TreeNode *sortedListToBST(Code::ListNode *&head, int left, int right);
+        void fit(int &count, long &goal, long row, long ldia, long rdia);
+        TreeNode *buildBinaryTree(const vector<int> &inorder, const vector<int> &preorder, int in_begin, int in_end, int *pre_begin);
+    }
 }
 
 #endif /* defined(__Code__Utilities__) */

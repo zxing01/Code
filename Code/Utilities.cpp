@@ -12,6 +12,8 @@
 #include <utility>
 #include <list>
 #include <sstream>
+#include <stack>
+#include <deque>
 
 using namespace std;
 
@@ -126,7 +128,18 @@ int Code::maxProduct(int A[], int n) {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-Code::TreeNode *sortedListToBST(Code::ListNode *&head, int left, int right) {
+Code::TreeNode *Code::sortedListToBST(ListNode *head) {
+    ListNode *cur = head;
+    int count = 0;
+    while (cur) {
+        ++count;
+        cur = cur->next;
+    }
+    return Helper::sortedListToBST(head, 1, count);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+Code::TreeNode *Code::Helper::sortedListToBST(Code::ListNode *&head, int left, int right) {
     using namespace Code;
     if (left > right)
         return nullptr;
@@ -139,17 +152,6 @@ Code::TreeNode *sortedListToBST(Code::ListNode *&head, int left, int right) {
     root->left =leftChild;
     root->right = rightChild;
     return root;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-Code::TreeNode *Code::sortedListToBST(ListNode *head) {
-    ListNode *cur = head;
-    int count = 0;
-    while (cur) {
-        ++count;
-        cur = cur->next;
-    }
-    return ::sortedListToBST(head, 1, count);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -182,7 +184,7 @@ string Code::simplifyPath(const string &path) {
 ///////////////////////////////////////////////////////////////////////////////
 vector<string> Code::split(const string &str, char delimit) {
     vector<string> ret;
-    stringstream ss(str);
+    istringstream ss(str);
     string temp;
     while (getline(ss, temp, delimit))
         ret.push_back(temp);
@@ -206,56 +208,160 @@ bool Code::isPalindrome(int x) {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-void nth34(int n) {
-    int digit = 1;
-    int count = 2;
-    while (count < n) {
-        ++digit;
-        count += (1 << digit);
-    }
-    
-    count -= (1 << digit);
-    n -= count + 1;
-    string res;
-    for (int i = digit - 1; i >= 0; --i) {
-        if (n & (int)1 << i)
-            res += '4';
-        else
-            res += '3';
-    }
-    
-    cout << res << endl;
+int Code::nQueen(int n) {
+    int count = 0;
+    long goal = (1 << n) - 1;
+    long row = 0, ldia = 0, rdia = 0;
+    Helper::fit(count, goal, row, ldia, rdia);
+    return count;
 }
+
+///////////////////////////////////////////////////////////////////////////////
+void Code::Helper::fit(int &count, long &goal, long row, long ldia, long rdia) {
+    if (row == goal)
+        ++count;
+    else {
+        long avail = ~(row | ldia | rdia) & goal;
+        while (avail) {
+            long pick = avail & -avail; // -avail flips all bits of avail and plus 1
+            avail -= pick;
+            fit(count, goal, row + pick, (ldia + pick) >> 1, (rdia + pick) << 1);
+        }
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+int Code::multiply(int a, int b) {
+    bool neg = (a > 0) ^ (b > 0);
+    a = abs(a), b = abs(b);
+    int prod = 0;
+    for (int i = 31; i >= 0; --i) {
+        prod <<= 1;
+        if ((b >> i) & 1)
+            prod += a;
+    }
+    return neg ? -prod : prod;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+Code::TreeNode *Code::buildBinaryTree(const vector<int> &inorder, const vector<int> &preorder) {
+    if (inorder.size() == 0 || inorder.size() != preorder.size())
+        return nullptr;
+    
+    int pre_begin = 0;
+    return Helper::buildBinaryTree(inorder, preorder, 0, (int)inorder.size() - 1, &pre_begin);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+Code::TreeNode *Code::Helper::buildBinaryTree(const vector<int> &inorder, const vector<int> &preorder,
+                                              int in_begin, int in_end, int *pre_begin) {
+    TreeNode *root = new TreeNode(preorder[*pre_begin]);
+    int mid;
+    for (mid = in_begin; mid <= in_end; ++mid)
+        if (inorder[mid] == preorder[*pre_begin])
+            break;
+    ++*pre_begin;
+    if (mid > in_begin)
+        root->left = buildBinaryTree(inorder, preorder, in_begin, mid-1, pre_begin);
+    if (mid < in_end)
+        root->right = buildBinaryTree(inorder, preorder, mid+1, in_end, pre_begin);
+    return root;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+vector<int> Code::preorder(TreeNode *root) {
+    stack<TreeNode*> stk;
+    vector<int> ret;
+    TreeNode *cur = root;
+    while (cur || !stk.empty()) {
+        if (cur) {
+            ret.push_back(cur->val);
+            stk.push(cur);
+            cur = cur->left;
+        }
+        else {
+            cur = stk.top();
+            stk.pop();
+            cur = cur->right;
+        }
+    }
+    return ret;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+vector<int> Code::inorder(TreeNode *root) {
+    stack<TreeNode*> stk;
+    vector<int> ret;
+    TreeNode *cur = root;
+    while (cur || !stk.empty()) {
+        if (cur) {
+            stk.push(cur);
+            cur = cur->left;
+        }
+        else {
+            cur = stk.top();
+            stk.pop();
+            ret.push_back(cur->val);
+            cur = cur->right;
+        }
+    }
+    return ret;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+vector<int> Code::postorder(TreeNode *root) {
+    stack<TreeNode*> stk;
+    deque<int> ret;
+    TreeNode *cur = root;
+    while (cur || !stk.empty()) {
+        if (cur) {
+            ret.push_front(cur->val);
+            stk.push(cur);
+            cur = cur->right;
+        }
+        else {
+            cur = stk.top();
+            stk.pop();
+            cur = cur->left;
+        }
+    }
+    return vector<int>(ret.begin(), ret.end());
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////
 #ifdef __TEST__Code__Utilities__
 using namespace Code;
 
+template <typename Container>
+void print(Container c) {
+    cout << "[ ";
+    for (auto it = c.begin(); it != c.end(); ++it)
+        cout << *it << " ";
+    cout << "]";
+}
+
 int main(int argc, const char *argv[]) {
     // tests for maxInSubarrays
     vector<int> array {1, 2, 3, 4, 5, 4, 3, 2, 1};
-    cout << " array = [ ";
-    for (auto n : array)
-        cout << n << " ";
-    cout << "]\n";
+    cout << " array: ";
+    print(array);
+    cout << endl;
     
     auto ret = maxInSubarrays(array, 1);
-    cout << "  max of subarrays of size 1 = [ ";
-    for (auto n : ret)
-        cout << n << " ";
-    cout << "]\n";
+    cout << "  max of subarrays of size 1: ";
+    print(ret);
+    cout << endl;
     
     ret = maxInSubarrays(array, 2);
-    cout << "  max of subarrays of size 2 = [ ";
-    for (auto n : ret)
-        cout << n << " ";
-    cout << "]\n";
+    cout << "  max of subarrays of size 2: ";
+    print(ret);
+    cout << endl;
     
     ret = maxInSubarrays(array, 3);
-    cout << "  max of subarrays of size 3 = [ ";
-    for (auto n : ret)
-        cout << n << " ";
-    cout << "]\n";
+    cout << "  max of subarrays of size 3: ";
+    print(ret);
+    cout << endl;
     
     // tests for pow
     cout << " pow(0, 10) = " << pow(0, 10) << endl;
@@ -268,17 +374,39 @@ int main(int argc, const char *argv[]) {
     string path = "/Users/zxing/Movies/Modern Family//S05";
     cout << " Path = " << path << endl;
     auto vec = split(path, '/');
-    cout << "  Split to [ ";
-    for (auto s : vec)
-        cout << "'" << s << "' ";
-    cout << "]\n";
+    cout << "  Split to: ";
+    print(vec);
+    cout << endl;
     
     // tests for isPalindrome
     bool result = isPalindrome(100021);
     cout << " isPalindrome(100021) = " << (result ? "true" : "false") << endl;
     
-    for (int i = 0; i < 30; ++i)
-        nth34(i+1);
+    // tests for multiply
+    cout << " multiply(9, -15) = " << multiply(9, -15) << endl;
+    cout << " multiply(-9, 20) = " << multiply(-9, 20) << endl;
+    
+    // tests for buildBinaryTree, preorder, inorder and postorder
+    vector<int> in {1, 2, 3, 4, 5, 6, 7};
+    vector<int> pre {4, 2, 1, 3, 6, 5, 7};
+    cout << " Given inorder traversal: ";
+    print(in);
+    cout << " preorder traversal: ";
+    print(pre);
+    cout << endl;
+    TreeNode *tree = buildBinaryTree(in, pre);
+    auto traversal = inorder(tree);
+    cout << "   Inorder traversal of constructed tree: ";
+    print(traversal);
+    cout << endl;
+    traversal = preorder(tree);
+    cout << "   Preorder traversal of constructed tree: ";
+    print(traversal);
+    cout << endl;
+    traversal = postorder(tree);
+    cout << "   Postorder traversal of constructed tree: ";
+    print(traversal);
+    cout << endl;
 }
 
 #endif
