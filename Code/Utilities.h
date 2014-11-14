@@ -65,6 +65,9 @@ namespace Code {
     // multiply two integers without using * and with minimal number of additions
     int multiply(int a, int b);
     
+    // build a binary search tree from preorder traversal
+    TreeNode *buildBST(const vector<int> &preorder);
+    
     // build binary tree from inorder and preorder traversal
     TreeNode *buildBinaryTree(const vector<int> &inorder, const vector<int> &preorder);
     
@@ -76,6 +79,9 @@ namespace Code {
     
     // iterateive postorder binary tree traversal
     vector<int> postorder(TreeNode *root);
+    
+    // values between two levels (0-indexed) in a binary tree
+    vector<int> valuesBetweenLevels(TreeNode *root, int upper, int lower);
     
     // helper functions
     namespace Helper {

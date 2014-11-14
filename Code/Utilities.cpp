@@ -13,6 +13,7 @@
 #include <list>
 #include <sstream>
 #include <stack>
+#include <queue>
 #include <deque>
 
 using namespace std;
@@ -244,6 +245,32 @@ int Code::multiply(int a, int b) {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+Code::TreeNode *Code::buildBST(const vector<int> &preorder) {
+    TreeNode *root = nullptr;
+    stack<TreeNode*> stk;
+    for (int i = 0; i < preorder.size(); ++i) {
+        TreeNode *node = new TreeNode(preorder[i]);
+        if (!stk.empty() && preorder[i] < stk.top()->val) {
+            stk.top()->left = node;
+            stk.push(node);
+        }
+        else {
+            TreeNode *cur = nullptr;
+            while (!stk.empty() && preorder[i] >= stk.top()->val) {
+                cur = stk.top();
+                stk.pop();
+            }
+            if (cur)
+                cur->right = node;
+            else
+                root = node;
+            stk.push(node);
+        }
+    }
+    return root;
+}
+
+///////////////////////////////////////////////////////////////////////////////
 Code::TreeNode *Code::buildBinaryTree(const vector<int> &inorder, const vector<int> &preorder) {
     if (inorder.size() == 0 || inorder.size() != preorder.size())
         return nullptr;
@@ -328,6 +355,32 @@ vector<int> Code::postorder(TreeNode *root) {
     return vector<int>(ret.begin(), ret.end());
 }
 
+///////////////////////////////////////////////////////////////////////////////
+vector<int> Code::valuesBetweenLevels(TreeNode *root, int lower, int upper) {
+    vector<int> ret;
+    TreeNode *marker = new TreeNode(0);
+    queue<TreeNode*> q;
+    q.push(root);
+    q.push(marker);
+    int level = 0;
+    while (!q.empty() && level <= upper) {
+        TreeNode *cur = q.front();
+        q.pop();
+        if (cur == marker) {
+            ++level;
+            q.push(cur);
+        }
+        else {
+            if (lower <= level)
+                ret.push_back(cur->val);
+            if (cur->left)
+                q.push(cur->left);
+            if (cur->right)
+                q.push(cur->right);
+        }
+    }
+    return ret;
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 #ifdef __TEST__Code__Utilities__
@@ -396,16 +449,34 @@ int main(int argc, const char *argv[]) {
     cout << endl;
     TreeNode *tree = buildBinaryTree(in, pre);
     auto traversal = inorder(tree);
-    cout << "   Inorder traversal of constructed tree: ";
+    cout << "   Inorder traversal of constructed binary tree: ";
     print(traversal);
     cout << endl;
     traversal = preorder(tree);
-    cout << "   Preorder traversal of constructed tree: ";
+    cout << "   Preorder traversal of constructed binary tree: ";
     print(traversal);
     cout << endl;
     traversal = postorder(tree);
-    cout << "   Postorder traversal of constructed tree: ";
+    cout << "   Postorder traversal of constructed binary tree: ";
     print(traversal);
+    cout << endl;
+    
+    // tests for buildBST
+    cout << " Given preorder traversal: ";
+    print(pre);
+    cout << endl;
+    tree = buildBST(pre);
+    traversal = inorder(tree);
+    cout << "   Inorder traversal of constructed BST: ";
+    print(traversal);
+    cout << endl;
+    
+    cout << " Given tree with preorder traversal: ";
+    print(pre);
+    cout << endl;
+    vector<int> values = valuesBetweenLevels(tree, 1, 3);
+    cout << "   Values between layers 1 and 3: ";
+    print(values);
     cout << endl;
 }
 
